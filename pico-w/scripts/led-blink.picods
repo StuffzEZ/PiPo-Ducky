@@ -1,0 +1,14 @@
+#T> LED Blink Pattern
+#D> Blinks the onboard LED in a fun pattern
+#N> Uses the built-in LED on the Pico W
+
+LED_ON
+DELAY 200
+LED_OFF
+DELAY 200
+LED_ON
+DELAY 200
+LED_OFF
+DELAY 200
+LED_BLINK 10 100
+LED_ON

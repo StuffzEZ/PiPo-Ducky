@@ -1,0 +1,27 @@
+#T> Mouse Demo
+#D> Demonstrates mouse movement and clicking
+#R> Must be plugged into a computer with a desktop
+
+REM Move mouse in a square pattern
+LED_ON
+DELAY 500
+
+MOUSE_MOVE 100 0
+DELAY 200
+MOUSE_MOVE 0 100
+DELAY 200
+MOUSE_MOVE -100 0
+DELAY 200
+MOUSE_MOVE 0 -100
+DELAY 200
+
+REM Click in the center
+MOUSE_CLICK
+DELAY 500
+
+REM Scroll down
+MOUSE_SCROLL -5
+DELAY 500
+MOUSE_SCROLL 5
+
+LED_OFF

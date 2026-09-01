@@ -1,100 +1,342 @@
-# Scripting
-The PiPo Ducky boasts a powerful scripting engine that is one of the easiest to learn. So easy that we only need 1 page for it!
+# PiPo Ducky Scripting Language (picods)
+
+The PiPo Ducky uses a custom scripting language called **picods** (PiPo Ducky Script). It's based on DuckyScript with added support for mouse control, LED feedback, and device management.
+
+---
+
+## Quick Start
+
+Create a `.picods` file with this content:
+
+```
+#T> My First Script
+#D> Opens Notepad and types hello
+
+DELAY 1000
+GUI r
+DELAY 500
+STRING notepad
+ENTER
+DELAY 1000
+STRING Hello World!
+```
+
+Save it to the `/scripts` folder on the CIRCUITPY drive, then run it from the web UI.
+
+---
 
 ## Metadata
-For scripts on the script viewer, you are advised to have `metadata` to make it easier to see what the script is. The metadata for `.picods` files goes like this:
-<br>(Put these at the top of the script and one line only)
-- `#T>` - The title metadata - This will be shown as the title in the script chooser (script explorer)
-- `#D>` - The description metadata - This will be shown below the title in the script chooser (Script explorer)
-- `#R>` - (Not Required to be in the script) Requirements - Tell the user executing the script what needs to happen before executing it
-- `#N>` - (Not required to be in the script) Notes - Tell the user executing the script some notes about it
-Together, they look like this
+
+Metadata goes at the top of your script (one tag per line). It's shown in the web UI script chooser.
+
+| Tag | Purpose | Example |
+|-----|---------|---------|
+| `#T>` | Title | `#T> Rickroll` |
+| `#D>` | Description | `#D> Opens a rickroll in the terminal` |
+| `#R>` | Requirements (multiline) | `#R> Windows with curl installed` |
+| `#N>` | Notes (multiline) | `#N> Harmless prank, no damage` |
+
 ```
-#T> Hello World Script
-#D> A Basic Hello World Script That Says Hello World Through A Batch Script
+#T> Rickroll
+#D> Rickroll someone via their terminal
+#R> Windows computer
+#R> Must have curl installed
+#N> Completely harmless
+#N> Just plays a music video
 
-#R> Must be plugged into a windows computer
-#R> OR
-#R> A OS that can process and run batch files
-
-#N> Does not damage computer
-#N> Just says hello world
-#N> It shows on the person's computer
-
-..Commands..
-```
-(The notes and requirements can be multiline)
-
-## Commands
-
-Commands are the actual code that is run when the run button is clicked. Here is a list of commands:
-
-- `WINDOWS` - Presses the Windows key.
-- `GUI` - Presses the Windows key (can be used to open shortcuts involving the Windows key, e.g., `GUI r` for Win+R).
-- `APP` / `MENU` - Opens the context menu (equivalent to right-click).
-- `SHIFT` - Presses the Shift key.
-- `ALT` - Presses the Alt key.
-- `CONTROL` / `CTRL` - Presses the Control key.
-- `DOWNARROW` / `DOWN` - Presses the Down Arrow key.
-- `LEFTARROW` / `LEFT` - Presses the Left Arrow key.
-- `RIGHTARROW` / `RIGHT` - Presses the Right Arrow key.
-- `UPARROW` / `UP` - Presses the Up Arrow key.
-- `BREAK` / `PAUSE` - Presses the Pause/Break key.
-- `CAPSLOCK` - Toggles Caps Lock.
-- `DELETE` - Presses the Delete key.
-- `END` - Presses the End key.
-- `ESC` / `ESCAPE` - Presses the Escape key.
-- `HOME` - Presses the Home key.
-- `INSERT` - Presses the Insert key.
-- `NUMLOCK` - Toggles Num Lock on the keypad.
-- `PAGEUP` - Presses the Page Up key.
-- `PAGEDOWN` - Presses the Page Down key.
-- `PRINTSCREEN` - Presses the Print Screen key.
-- `ENTER` - Presses the Enter key.
-- `SCROLLLOCK` - Toggles Scroll Lock.
-- `SPACE` - Presses the Spacebar.
-- `TAB` - Presses the Tab key.
-- `A` through `Z` - Presses the corresponding letter key.
-- `F1` through `F12` - Presses the corresponding function key.
-A Full Dictionary, Extracted From The duck.py Script Is Below.
-```
-    duckyCommands = {
-    'WINDOWS': Keycode.WINDOWS, 'GUI': Keycode.GUI,
-    'APP': Keycode.APPLICATION, 'MENU': Keycode.APPLICATION, 'SHIFT': Keycode.SHIFT,
-    'ALT': Keycode.ALT, 'CONTROL': Keycode.CONTROL, 'CTRL': Keycode.CONTROL,
-    'DOWNARROW': Keycode.DOWN_ARROW, 'DOWN': Keycode.DOWN_ARROW, 'LEFTARROW': Keycode.LEFT_ARROW,
-    'LEFT': Keycode.LEFT_ARROW, 'RIGHTARROW': Keycode.RIGHT_ARROW, 'RIGHT': Keycode.RIGHT_ARROW,
-    'UPARROW': Keycode.UP_ARROW, 'UP': Keycode.UP_ARROW, 'BREAK': Keycode.PAUSE,
-    'PAUSE': Keycode.PAUSE, 'CAPSLOCK': Keycode.CAPS_LOCK, 'DELETE': Keycode.DELETE,
-    'END': Keycode.END, 'ESC': Keycode.ESCAPE, 'ESCAPE': Keycode.ESCAPE, 'HOME': Keycode.HOME,
-    'INSERT': Keycode.INSERT, 'NUMLOCK': Keycode.KEYPAD_NUMLOCK, 'PAGEUP': Keycode.PAGE_UP,
-    'PAGEDOWN': Keycode.PAGE_DOWN, 'PRINTSCREEN': Keycode.PRINT_SCREEN, 'ENTER': Keycode.ENTER,
-    'SCROLLLOCK': Keycode.SCROLL_LOCK, 'SPACE': Keycode.SPACE, 'TAB': Keycode.TAB,
-    'A': Keycode.A, 'B': Keycode.B, 'C': Keycode.C, 'D': Keycode.D, 'E': Keycode.E,
-    'F': Keycode.F, 'G': Keycode.G, 'H': Keycode.H, 'I': Keycode.I, 'J': Keycode.J,
-    'K': Keycode.K, 'L': Keycode.L, 'M': Keycode.M, 'N': Keycode.N, 'O': Keycode.O,
-    'P': Keycode.P, 'Q': Keycode.Q, 'R': Keycode.R, 'S': Keycode.S, 'T': Keycode.T,
-    'U': Keycode.U, 'V': Keycode.V, 'W': Keycode.W, 'X': Keycode.X, 'Y': Keycode.Y,
-    'Z': Keycode.Z, 'F1': Keycode.F1, 'F2': Keycode.F2, 'F3': Keycode.F3,
-    'F4': Keycode.F4, 'F5': Keycode.F5, 'F6': Keycode.F6, 'F7': Keycode.F7,
-    'F8': Keycode.F8, 'F9': Keycode.F9, 'F10': Keycode.F10, 'F11': Keycode.F11,
-    'F12': Keycode.F12,
-    }
+DELAY 1000
+GUI r
+...
 ```
 
-## Examples
-Here are some examples with comments (Starting with `#`) along the lines to explain them
-EG1 - rickroll
-```
-DELAY 1000 # Wait 1 Second (1000ms)
-GUI r # Press WIN+R
-DELAY 300 # Wait 300ms
-STRING cmd # Type cmd
-ENTER # Press enter
-DELAY 750 # Wait 750ms
-STRING curl ASCII.live/can-you-hear-me # Type the script location into the cmd window
-ENTER # Press enter
-```
-### MORE EXAMPLES COMING SOON
+---
 
-### If you have made a script, you are welcome to contribute it to [this repo](https://github.com/StuffzEZ/PiPo-Ducky/tree/scripts) by forking it then submitting a PR (pull request) to the scripts branch!
+## Commands Reference
+
+### Timing
+
+| Command | Syntax | Description |
+|---------|--------|-------------|
+| `DELAY` | `DELAY 1000` | Pause for N milliseconds |
+| `DEFAULT_DELAY` | `DEFAULT_DELAY 500` | Set delay applied after every line |
+| `DEFAULTDELAY` | `DEFAULTDELAY 500` | Alias for DEFAULT_DELAY |
+| `STRINGDELAY` | `STRINGDELAY 50` | Set delay between each character when typing |
+| `STRING_DELAY` | `STRING_DELAY 50` | Alias for STRINGDELAY |
+| `REPEAT` | `REPEAT 5` | Repeat the previous line N times |
+
+```
+DEFAULT_DELAY 100    # Wait 100ms between every line
+DELAY 2000           # Wait 2 seconds
+STRING hello         # Type "hello" with no char delay
+STRINGDELAY 100      # Now type slowly
+STRING world         # Types "world" with 100ms between each letter
+REPEAT 3             # Types "world" 3 more times
+```
+
+---
+
+### Keyboard
+
+#### Text & Basic Keys
+
+| Command | Description |
+|---------|-------------|
+| `STRING text` | Types the text string |
+| `ENTER` | Press Enter |
+| `TAB` | Press Tab |
+| `SPACE` | Press Spacebar |
+| `BACKSPACE` / `BKSP` | Press Backspace |
+| `DELETE` | Press Delete |
+| `ESC` / `ESCAPE` | Press Escape |
+| `INSERT` | Press Insert |
+
+#### Modifiers
+
+| Command | Description |
+|---------|-------------|
+| `GUI` / `WINDOWS` | Windows/Command key |
+| `CTRL` / `CONTROL` | Control key |
+| `ALT` | Alt key |
+| `SHIFT` | Shift key |
+| `APP` / `MENU` | Context menu key (right-click menu) |
+
+#### Navigation
+
+| Command | Description |
+|---------|-------------|
+| `UP` / `UPARROW` | Up arrow |
+| `DOWN` / `DOWNARROW` | Down arrow |
+| `LEFT` / `LEFTARROW` | Left arrow |
+| `RIGHT` / `RIGHTARROW` | Right arrow |
+| `HOME` | Home key |
+| `END` | End key |
+| `PAGEUP` | Page Up |
+| `PAGEDOWN` | Page Down |
+
+#### Lock Keys
+
+| Command | Description |
+|---------|-------------|
+| `CAPSLOCK` | Toggle Caps Lock |
+| `NUMLOCK` | Toggle Num Lock |
+| `SCROLLLOCK` | Toggle Scroll Lock |
+| `PRINTSCREEN` | Print Screen |
+| `PAUSE` / `BREAK` | Pause/Break |
+
+#### Function Keys
+
+| Command | Description |
+|---------|-------------|
+| `F1` - `F12` | Function keys F1 through F12 |
+
+#### Letters & Numbers
+
+| Command | Description |
+|---------|-------------|
+| `A` - `Z` | Letter keys |
+| `0` - `9` | Number keys |
+
+#### Symbols
+
+| Command | Description |
+|---------|-------------|
+| `MINUS` | `-` key |
+| `EQUALS` | `=` key |
+| `LBRACKET` | `[` key |
+| `RBRACKET` | `]` key |
+| `BACKSLASH` | `\` key |
+| `SEMICOLON` | `;` key |
+| `QUOTE` | `'` key |
+| `GRAVE` | `` ` `` key (tilde) |
+| `COMMA` | `,` key |
+| `PERIOD` | `.` key |
+| `SLASH` | `/` key |
+
+#### Key Combos
+
+Space-separated keys are pressed simultaneously:
+
+```
+GUI r                # Windows+R (Run dialog)
+CTRL ALT DELETE      # Ctrl+Alt+Delete
+CTRL SHIFT ESC       # Ctrl+Shift+Esc (Task Manager)
+CTRL c               # Copy
+CTRL v               # Paste
+CTRL z               # Undo
+ALT F4               # Close window
+GUI l                # Lock screen
+SHIFT HOME           # Select to start of line
+```
+
+---
+
+### Mouse
+
+| Command | Syntax | Description |
+|---------|--------|-------------|
+| `MOUSE_MOVE` | `MOUSE_MOVE 100 50` | Move relative (x=right, y=down) |
+| `MOUSE_CLICK` | `MOUSE_CLICK` | Left click |
+| `MOUSE_RIGHTCLICK` | `MOUSE_RIGHTCLICK` | Right click |
+| `MOUSE_MIDDLECLICK` | `MOUSE_MIDDLECLICK` | Middle click |
+| `MOUSE_SCROLL` | `MOUSE_SCROLL -5` | Scroll wheel (negative=up, positive=down) |
+| `MOUSE_DOWN` | `MOUSE_DOWN` | Hold left button (for drag) |
+| `MOUSE_UP` | `MOUSE_UP` | Release left button |
+| `MOUSE_MOVE_TO` | `MOUSE_MOVE_TO 200 100 20` | Smooth move to position over N steps |
+
+```
+# Move mouse in a square
+MOUSE_MOVE 100 0
+DELAY 200
+MOUSE_MOVE 0 100
+DELAY 200
+MOUSE_MOVE -100 0
+DELAY 200
+MOUSE_MOVE 0 -100
+
+# Click
+MOUSE_CLICK
+
+# Right-click context menu
+MOUSE_RIGHTCLICK
+
+# Scroll down 5 notches
+MOUSE_SCROLL 5
+
+# Drag and drop
+MOUSE_MOVE 100 100
+MOUSE_DOWN
+MOUSE_MOVE 300 200
+MOUSE_UP
+
+# Smooth movement
+MOUSE_MOVE_TO 400 300 30
+```
+
+**Note:** Mouse coordinates are relative pixels. Positive X = right, Positive Y = down.
+
+---
+
+### Device Control
+
+| Command | Syntax | Description |
+|---------|--------|-------------|
+| `LED_ON` | `LED_ON` | Turn on the onboard LED |
+| `LED_OFF` | `LED_OFF` | Turn off the onboard LED |
+| `LED_BLINK` | `LED_BLINK 5 200` | Blink LED N times with delay (ms) |
+| `REBOOT` | `REBOOT` | Reboot the Pico W |
+| `WAIT_FOR_BUTTON` | `WAIT_FOR_BUTTON` | Pause forever (unplug to stop) |
+
+```
+LED_ON                # LED on
+LED_BLINK 3 300       # Blink 3 times, 300ms each
+LED_OFF               # LED off
+
+REBOOT                # Restart the device
+```
+
+---
+
+### Comments
+
+```
+REM This is a comment (ignored)
+# This is also a comment (ignored)
+
+DELAY 1000  # Inline comment after a command
+```
+
+---
+
+## Complete Examples
+
+### Example 1: Open Notepad and Type
+```
+#T> Notepad Typing
+#D> Opens Notepad and types a message
+#R> Windows computer
+
+DELAY 1000
+GUI r
+DELAY 500
+STRING notepad
+ENTER
+DELAY 1000
+STRING Hello from PiPo Ducky!
+ENTER
+STRING This script was written using the picods language.
+```
+
+### Example 2: Mouse Demo
+```
+#T> Mouse Demo
+#D> Moves the mouse in patterns
+#R> Desktop with mouse
+
+LED_ON
+DELAY 500
+
+MOUSE_MOVE 100 0
+DELAY 200
+MOUSE_MOVE 0 100
+DELAY 200
+MOUSE_MOVE -100 0
+DELAY 200
+MOUSE_MOVE 0 -100
+DELAY 200
+
+MOUSE_CLICK
+DELAY 500
+MOUSE_SCROLL -3
+
+LED_OFF
+```
+
+### Example 3: Lock Computer
+```
+#T> Lock Screen
+#D> Locks the Windows computer
+#R> Windows
+
+DELAY 500
+GUI l
+```
+
+### Example 4: Open Browser to URL
+```
+#T> Open Website
+#D> Opens a website in the default browser
+#R> Windows
+
+DELAY 1000
+GUI r
+DELAY 500
+STRING https://example.com
+ENTER
+```
+
+### Example 5: LED Status Feedback
+```
+#T> LED Feedback
+#D> Shows LED feedback during script execution
+
+LED_ON
+DELAY 200
+LED_OFF
+
+GUI r
+DELAY 500
+STRING notepad
+ENTER
+
+LED_BLINK 3 200
+```
+
+---
+
+## Tips
+
+1. **Add delays after actions** - Give the computer time to respond (500-1000ms after opening dialogs)
+2. **Use LED feedback** - Turn LED on/off to know when script is running
+3. **Test small** - Start with simple scripts, build up complexity
+4. **Check requirements** - Some scripts need specific OS or software
+5. **Use comments** - Document what your scripts do for future reference
