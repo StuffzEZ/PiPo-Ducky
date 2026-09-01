@@ -20,7 +20,7 @@ duckyCommands = {
     'UPARROW': Keycode.UP_ARROW, 'UP': Keycode.UP_ARROW, 'BREAK': Keycode.PAUSE,
     'PAUSE': Keycode.PAUSE, 'CAPSLOCK': Keycode.CAPS_LOCK, 'DELETE': Keycode.DELETE,
     'END': Keycode.END, 'ESC': Keycode.ESCAPE, 'ESCAPE': Keycode.ESCAPE, 'HOME': Keycode.HOME,
-    'INSERT': Keycode.INSERT, 'NUMLOCK': Keycode.KEYPAD_NUMLOCK, 'PAGEUP': Keycode.PAGE_UP,
+    'INSERT': Keycode.INSERT, 'PAGEUP': Keycode.PAGE_UP,
     'PAGEDOWN': Keycode.PAGE_DOWN, 'PRINTSCREEN': Keycode.PRINT_SCREEN, 'ENTER': Keycode.ENTER,
     'SCROLLLOCK': Keycode.SCROLL_LOCK, 'SPACE': Keycode.SPACE, 'TAB': Keycode.TAB,
     'A': Keycode.A, 'B': Keycode.B, 'C': Keycode.C, 'D': Keycode.D, 'E': Keycode.E,
@@ -38,11 +38,12 @@ duckyCommands = {
     'MINUS': Keycode.MINUS, 'EQUALS': Keycode.EQUALS,
     'LBRACKET': Keycode.LEFT_BRACKET, 'RBRACKET': Keycode.RIGHT_BRACKET,
     'BACKSLASH': Keycode.BACKSLASH, 'SEMICOLON': Keycode.SEMICOLON,
-    'QUOTE': Keycode.QUOTE, 'GRAVE': Keycode.GRAVE,
+    'QUOTE': Keycode.QUOTE, 'GRAVE': Keycode.GRAVE_ACCENT,
     'COMMA': Keycode.COMMA, 'PERIOD': Keycode.PERIOD, 'SLASH': Keycode.FORWARD_SLASH,
 }
 
 def exe(Payload_Script):
+    import usb_hid
     kbd = Keyboard(usb_hid.devices)
     layout = KeyboardLayoutUS(kbd)
     mouse = Mouse(usb_hid.devices)
