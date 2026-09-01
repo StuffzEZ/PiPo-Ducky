@@ -20,7 +20,7 @@ pool = socketpool.SocketPool(wifi.radio)
 server = Server(pool, "/static", debug=True)
 
 usb_enabled = True
-led_pin = digitalio.DigitalInOut(board.GP25)
+led_pin = digitalio.DigitalInOut(board.LED)
 led_pin.direction = digitalio.Direction.OUTPUT
 
 PORTAL_FILE = "/portal/index.html"

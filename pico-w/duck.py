@@ -8,7 +8,7 @@ import board
 import digitalio
 import microcontroller
 
-led = digitalio.DigitalInOut(board.GP25)
+led = digitalio.DigitalInOut(board.LED)
 led.direction = digitalio.Direction.OUTPUT
 
 duckyCommands = {
